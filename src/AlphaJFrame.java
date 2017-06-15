@@ -9,6 +9,8 @@ import java.awt.*;
 import java.util.Date;
 import java.text.*;
 import java.io.*;
+import org.python.core.*;
+import org.python.util.*;
 
 public class AlphaJFrame extends javax.swing.JFrame {
     
@@ -85,6 +87,7 @@ public class AlphaJFrame extends javax.swing.JFrame {
         dt = new javax.swing.JFormattedTextField();
         rating = new javax.swing.JSlider();
         brows = new javax.swing.JFileChooser();
+        JyThon = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -128,6 +131,13 @@ public class AlphaJFrame extends javax.swing.JFrame {
 
         dt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("Y-m-d"))));
 
+        JyThon.setText("Jython");
+        JyThon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JyThonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -163,6 +173,8 @@ public class AlphaJFrame extends javax.swing.JFrame {
                         .addGap(0, 11, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(JyThon)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(sv)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -207,7 +219,9 @@ public class AlphaJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(brows, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(77, 77, 77)
-                .addComponent(sv)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sv)
+                    .addComponent(JyThon))
                 .addContainerGap())
         );
 
@@ -235,6 +249,12 @@ public class AlphaJFrame extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_svActionPerformed
+
+    private void JyThonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JyThonActionPerformed
+        org.python.util.PythonInterpreter interp = new org.python.util.PythonInterpreter();
+        String scriptname = "src/python/hello.py"; 
+        interp.execfile(scriptname);
+    }//GEN-LAST:event_JyThonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -272,6 +292,7 @@ public class AlphaJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton JyThon;
     public javax.swing.JFileChooser brows;
     public javax.swing.JComboBox<String> count;
     public javax.swing.JFormattedTextField dt;
