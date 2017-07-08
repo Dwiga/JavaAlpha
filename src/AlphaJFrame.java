@@ -69,6 +69,8 @@ public class AlphaJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jFileChooser1 = new javax.swing.JFileChooser();
+        poopup = new javax.swing.JPopupMenu();
+        pupup = new javax.swing.JDialog();
         jLabel1 = new javax.swing.JLabel();
         jdl = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -88,6 +90,19 @@ public class AlphaJFrame extends javax.swing.JFrame {
         rating = new javax.swing.JSlider();
         brows = new javax.swing.JFileChooser();
         JyThon = new javax.swing.JButton();
+
+        pupup.setTitle("Pop Up");
+
+        javax.swing.GroupLayout pupupLayout = new javax.swing.GroupLayout(pupup.getContentPane());
+        pupup.getContentPane().setLayout(pupupLayout);
+        pupupLayout.setHorizontalGroup(
+            pupupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        pupupLayout.setVerticalGroup(
+            pupupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -249,11 +264,17 @@ public class AlphaJFrame extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_svActionPerformed
-
+    
     private void JyThonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JyThonActionPerformed
+        String[] gumn = {"src/python/hello.py", "haha", "hihi"};
+        PythonInterpreter.initialize(System.getProperties(), System.getProperties(), gumn);
         org.python.util.PythonInterpreter interp = new org.python.util.PythonInterpreter();
+        StringWriter out = new StringWriter();
+        interp.setOut(out);
         String scriptname = "src/python/hello.py"; 
         interp.execfile(scriptname);
+        String outputStr = out.toString();
+        System.out.println(outputStr);
     }//GEN-LAST:event_JyThonActionPerformed
 
     /**
@@ -310,6 +331,8 @@ public class AlphaJFrame extends javax.swing.JFrame {
     public javax.swing.JTextField jdl;
     public javax.swing.JTextArea ket;
     public javax.swing.JComboBox<String> lang;
+    public javax.swing.JPopupMenu poopup;
+    public javax.swing.JDialog pupup;
     public javax.swing.JSlider rating;
     public javax.swing.JButton sv;
     // End of variables declaration//GEN-END:variables
