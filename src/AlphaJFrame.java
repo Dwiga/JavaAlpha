@@ -9,6 +9,8 @@ import java.awt.*;
 import java.util.Date;
 import java.text.*;
 import java.io.*;
+import org.python.core.*;
+import org.python.util.*;
 
 public class AlphaJFrame extends javax.swing.JFrame {
     
@@ -67,6 +69,8 @@ public class AlphaJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jFileChooser1 = new javax.swing.JFileChooser();
+        poopup = new javax.swing.JPopupMenu();
+        pupup = new javax.swing.JDialog();
         jLabel1 = new javax.swing.JLabel();
         jdl = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -85,6 +89,22 @@ public class AlphaJFrame extends javax.swing.JFrame {
         dt = new javax.swing.JFormattedTextField();
         rating = new javax.swing.JSlider();
         brows = new javax.swing.JFileChooser();
+        JyThon = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        printing = new javax.swing.JTextPane();
+
+        pupup.setTitle("Pop Up");
+
+        javax.swing.GroupLayout pupupLayout = new javax.swing.GroupLayout(pupup.getContentPane());
+        pupup.getContentPane().setLayout(pupupLayout);
+        pupupLayout.setHorizontalGroup(
+            pupupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        pupupLayout.setVerticalGroup(
+            pupupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -128,6 +148,15 @@ public class AlphaJFrame extends javax.swing.JFrame {
 
         dt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("Y-m-d"))));
 
+        JyThon.setText("Jython");
+        JyThon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JyThonActionPerformed(evt);
+            }
+        });
+
+        jScrollPane2.setViewportView(printing);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -163,11 +192,17 @@ public class AlphaJFrame extends javax.swing.JFrame {
                         .addGap(0, 11, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(JyThon)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(sv)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(brows, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane2))
+                    .addComponent(brows, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -206,8 +241,12 @@ public class AlphaJFrame extends javax.swing.JFrame {
                 .addComponent(rating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(brows, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
-                .addComponent(sv)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sv)
+                    .addComponent(JyThon))
                 .addContainerGap())
         );
 
@@ -235,6 +274,19 @@ public class AlphaJFrame extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_svActionPerformed
+    
+    private void JyThonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JyThonActionPerformed
+        String[] gumn = {jdl.getText(), dt.getText(), ket.getText()};
+        PythonInterpreter.initialize(System.getProperties(), System.getProperties(), gumn);
+        org.python.util.PythonInterpreter interp = new org.python.util.PythonInterpreter();
+        StringWriter out = new StringWriter();
+        interp.setOut(out);
+        String scriptname = "src/python/hello.py"; 
+        interp.execfile(scriptname);
+        String outputStr = out.toString();
+        System.out.println(outputStr);
+        printing.setText(outputStr);
+    }//GEN-LAST:event_JyThonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -272,6 +324,7 @@ public class AlphaJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton JyThon;
     public javax.swing.JFileChooser brows;
     public javax.swing.JComboBox<String> count;
     public javax.swing.JFormattedTextField dt;
@@ -286,9 +339,13 @@ public class AlphaJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTextField jdl;
     public javax.swing.JTextArea ket;
     public javax.swing.JComboBox<String> lang;
+    public javax.swing.JPopupMenu poopup;
+    public javax.swing.JTextPane printing;
+    public javax.swing.JDialog pupup;
     public javax.swing.JSlider rating;
     public javax.swing.JButton sv;
     // End of variables declaration//GEN-END:variables
